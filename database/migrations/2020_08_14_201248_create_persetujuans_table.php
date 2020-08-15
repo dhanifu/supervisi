@@ -15,7 +15,8 @@ class CreatePersetujuansTable extends Migration
     {
         Schema::create('persetujuans', function (Blueprint $table) {
             $table->id();
-            $table->
+            $table->bigInteger('rpp_id');
+            $table->enum('status', [0, 1])->nullable();
             $table->timestamps();
         });
     }
