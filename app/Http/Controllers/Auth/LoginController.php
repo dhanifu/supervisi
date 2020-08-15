@@ -41,6 +41,17 @@ class LoginController extends Controller
 
     public function authenticated(Request $request, $user)
     {
-        return redirect()->route('home');
+        // return redirect()->route('home');
+        if ( $user->hasRole('admin') ) {
+            return redirect()->route('admin.home');
+        }elseif ( $user->hasRole('kepalasekolah') ) {
+            return redirect()->route('kepalasekolah.home');
+        }elseif ( $user->hasRole('kurikulum') ) {
+            return redirect()->route('kurikulum.home');
+        }elseif ( $user->hasRole('guru') ) {
+            return redirect()->route('guru.home');
+        }elseif ( $user->hasRole('supervisor') ) {
+            return redirect()->route('supervisor.home');
+        }
     }
 }

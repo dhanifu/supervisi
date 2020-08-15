@@ -23,17 +23,28 @@
     <hr class="sidebar-divider">
 
     <!-- Heading -->
+    @if(Auth::user()->role('guru'))
     <div class="sidebar-heading">
         File
     </div>
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link" href="charts.html">
+        <a class="nav-link" href="{{ route('guru.rpp.index') }}">
             <i class="fas fa-fw fa-file"></i>
             <span>Upload RPP</span>
         </a>
     </li>
+
+    @elseif(Auth::user()->role('kepalasekolah'))
+    saya kepalasekolah
+    @elseif(Auth::user()->role('kurikulum'))
+    saya kurikulum
+    @elseif(Auth::user()->role('supervisor'))
+    saya supervisor
+    @elseif(Auth::user()->role('admin'))
+    saya admin
+    @endif
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
