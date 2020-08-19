@@ -16,7 +16,7 @@ use Illuminate\Http\Request;
 
 Auth::routes();
 
-Route::get('/', 'HomeController@home')->name('home');
+Route::get('', 'HomeController@home')->name('home');
 
 
 Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function(){
@@ -35,16 +35,24 @@ Route::prefix('kurikulum')->name('kurikulum.')->middleware('role:kurikulum')->gr
 });
 
 Route::prefix('guru')->name('guru.')->middleware('role:guru')->group(function(){
-    Route::get('/', 'HomeController@home')->name('.home');
-    Route::get('/home', 'HomeController@home')->name('.home');
+    Route::get('/', 'HomeController@home')->name('home');
+    Route::get('/home', 'HomeController@home')->name('home');
     
     Route::prefix('rpp')->name('rpp.')->group(function(){
-        Route::get('/', 'RppController@index')->name('index');
+        Route::get('/', 'GuruController@create')->name('index');
         Route::post('/', 'RppController@store')->name('store');
+        Route::patch('/', 'RppController@update')->name('update');
+        Route::delete('/{rpp}', 'RppController@destroy')->name('delete');
     });
 });
 
 Route::prefix('supervisor')->name('supervisor.')->middleware('role:supervisor')->group(function(){
     Route::get('/', 'HomeController@home')->name('home');
     Route::get('/home', 'HomeController@home')->name('home');
+
+    Route::prefix('rpp')->name('rpp.')->group(function(){
+        Route::get('/', 'SupervisorController@create')->name('menilai');
+        Route::post('/', 'SupervisorController@menilai')->name('menilai.post');
+        Route::patch('/', 'SupervisorController@editNilai')->name('menilai.edit');
+    });
 });

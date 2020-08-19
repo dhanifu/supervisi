@@ -16,8 +16,10 @@ class CreateRppTable extends Migration
         Schema::create('rpp', function (Blueprint $table) {
             $table->id();
             $table->string('nip_guru'); // Guru Yang Upload File RPP
-            $table->string('nama_rpp', 150);
-            $table->string('rpp', 100); // nama uniq untuk disimpan distorage aplikasi
+            $table->string('nama_rpp', 100);
+            $table->string('rpp'); // nama uniq untuk disimpan distorage aplikasi
+            $table->float('nilai')->nullable();
+            $table->enum('status', ['belum', 0, 1]);
             $table->timestamps();
         });
     }

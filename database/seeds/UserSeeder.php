@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
 
         $kepalasekolah = User::create([
             'nip' => '199008242016062001',
-            'name' => 'saya Kepala Sekolah',
+            'name' => 'Kepala Sekolah',
             'email' => 'kepalasekolah@email.com',
             'password' => bcrypt('kepsek123')
         ]);
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
 
         $kurikulum = User::create([
             'nip' => '197703252009012001',
-            'name' => 'saya Kurikulum',
+            'name' => 'Kurikulum',
             'email' => 'kurikulum@email.com',
             'password' => bcrypt('kurikulum123')
         ]);
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
 
         $guru = User::create([
             'nip' => '199504222018011001',
-            'name' => 'saya Guru',
+            'name' => 'Guru',
             'email' => 'guru@email.com',
             'password' => bcrypt('guru123')
         ]);
@@ -46,7 +46,7 @@ class UserSeeder extends Seeder
         
         $supervisor = User::create([
             'nip' => '198909102020071001',
-            'name' => 'saya Supervisor',
+            'name' => 'Supervisor',
             'email' => 'supervisor@email.com',
             'password' => bcrypt('supervisor123')
         ]);

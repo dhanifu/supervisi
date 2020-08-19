@@ -15,7 +15,6 @@ class CreateJadwalsTable extends Migration
     {
         Schema::create('jadwals', function (Blueprint $table) {
             $table->id();
-            $table->string('nip_kurikulum'); // Yang membuat jadwal
             $table->string('nip_supervisor'); // untuk siapa jadwalnya
             $table->date('tanggal');
             $table->time('waktu');

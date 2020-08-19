@@ -1,5 +1,21 @@
 @extends('layouts.app')
 
+@role('admin')
+    @section('title', 'Admin | Dashboard')
+@endrole
+@role('kepalasekolah')
+    @section('title', 'Kepala Sekolah | Dashboard')
+@endrole
+@role('kurikulum')
+    @section('title', 'Kurikulum | Dashboard')
+@endrole
+@role('guru')
+    @section('title', 'Guru | Dashboard')
+@endrole
+@role('supervisor')
+    @section('title', 'Supervisor | Dashboard')
+@endrole
+
 @section('content')
 <div class="row">
     <div class="col-lg-12">
