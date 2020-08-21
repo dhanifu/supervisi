@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\File;
 
 class RppController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Store a newly created resource in storage.
      * UPLOAD RPP
@@ -76,6 +80,39 @@ class RppController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'RPP telah diedit');
+    }
+    
+    public function setujui(Request $request)
+    {
+        $rpp = Rpp::findOrFail($request->rpp_id);
+
+        $rpp->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil Menyetujui RPP');
+    }   
+    public function tidakSetujui(Request $request)
+    {
+        $rpp = Rpp::findOrFail($request->rpp_id);
+
+        $rpp->update([
+            'status' => $request->status,
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil Tidak Menyutujui RPP');
+    }
+    
+    public function editStatus(Request $request)
+    {
+        $rpp = Rpp::findOrFail($request->rpp_id);
+        $status = $request->status;
+        
+        $rpp->update([
+            'status' => $status,
+        ]);
+
+        return redirect()->back()->with('success', 'Berhasil Mengedit Status');
     }
 
     public function destroy(Rpp $rpp)

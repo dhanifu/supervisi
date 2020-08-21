@@ -26,22 +26,35 @@
 
         <div id="content-wrapper" class="d-flex flex-column">
             <!-- MAIN CONTENT -->
-            <div id="main-content">
+            <div id="content">
+                <div id="main-content">
 
-                <!-- TOP BAR -->
-                @include('layouts.modules.topbar')
-                <!-- END OF TOP BAR -->
+                    <!-- TOP BAR -->
+                    @include('layouts.modules.topbar')
+                    <!-- END OF TOP BAR -->
 
-                <!-- BEGIN PAGE CONTENT -->
-                <div class="container-fluid">
-                    <!-- PAGE HEADING -->
-                    @yield('content')
-                    <!-- END OF PAGE HEADING -->
+                    <!-- BEGIN PAGE CONTENT -->
+                    <div class="container-fluid">
+                        <!-- PAGE HEADING -->
+                        @yield('content')
+                        <!-- END OF PAGE HEADING -->
+                    </div>
+
                 </div>
                 <!-- END PAGE CONTENT -->
-
             </div>
             <!-- END OF MAIN CONTENT -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Supervise <script>document.write(new Date().getFullYear());</script></span>
+                </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
         </div>
 
     </div>

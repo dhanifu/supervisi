@@ -4,18 +4,14 @@
     <!-- Sidebar - Brand -->
     @role('admin')
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('admin.home') }}">
-    @endrole
-    @role('kepalasekolah')
+    @elserole('kepalasekolah')
         <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('kepalasekolah.home') }}">
-    @endrole
-    @role('kurikulum')
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('kurikulum.home') }}">>
-    @endrole
-    @role('guru')
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('guru.home') }}">>
-    @endrole
-    @role('supervisor')
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('supervisor.home') }}">>
+    @elserole('kurikulum')
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('kurikulum.home') }}">
+    @elserole('guru')
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('guru.home') }}">
+    @elserole('supervisor')
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('supervisor.home') }}">
     @endrole
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
@@ -30,17 +26,17 @@
     <li class="nav-item active">
         @role('admin')
             <a class="nav-link" href="{{ route('admin.home') }}">
-        @endrole
-        @role('kepalasekolah')
+        
+        @elserole('kepalasekolah')
             <a class="nav-link" href="{{ route('kepalasekolah.home') }}">
-        @endrole
-        @role('kurikulum')
+        
+        @elserole('kurikulum')
             <a class="nav-link" href="{{ route('kurikulum.home') }}">
-        @endrole
-        @role('guru')
+        
+        @elserole('guru')
             <a class="nav-link" href="{{ route('guru.home') }}">
-        @endrole
-        @role('supervisor')
+        
+        @elserole('supervisor')
             <a class="nav-link" href="{{ route('supervisor.home') }}">
         @endrole
             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -56,10 +52,26 @@
     saya admin
 
     @elserole('kepalasekolah')
-    saya kepalasekolah
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('kepalasekolah.rpp.index') }}">
+            <i class="fas fa-fw fa-file"></i>
+            <span>Lihat RPP</span>
+        </a>
+    </li>
 
-    @elserool('kurikulum')
-    Saya kurikulum
+    @elserole('kurikulum')
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('kurikulum.jadwal.index') }}">
+            <i class="fas fa-fw fa-calendar-alt"></i>
+            <span>Jadwal Supervisor</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('kurikulum.persetujuan.index') }}">
+            <i class="fas fa-fw fa-check-circle"></i>
+            <span>Persetujuan</span>
+        </a>
+    </li>
     
     @elserole('guru')
     <div class="sidebar-heading">
@@ -75,11 +87,14 @@
     </li>
 
     @elserole('supervisor')
-    <div class="sidebar-heading">
-        File RPP Guru
-    </div>
 
     <!-- Nav Item - Charts -->
+    <li class="nav-item">
+        <a class="nav-link" href="{{ route('supervisor.rpp.jadwal') }}">
+            <i class="fas fa-fw fa-file"></i>
+            <span>Jadwal</span>
+        </a>
+    </li>
     <li class="nav-item">
         <a class="nav-link" href="{{ route('supervisor.rpp.menilai') }}">
             <i class="fas fa-fw fa-file"></i>
