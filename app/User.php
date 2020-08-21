@@ -44,4 +44,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Jadwal', 'nip_supervisor');
     }
+
+    public function guru()
+    {
+        return $this->belongsTo('App\Rpp', 'nip_guru');
+    }
 }
