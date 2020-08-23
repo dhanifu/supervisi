@@ -22,6 +22,19 @@ Route::get('', 'HomeController@home')->name('home');
 Route::prefix('admin')->name('admin.')->middleware('role:admin')->group(function(){
     Route::get('/', 'HomeController@home')->name('home');
     Route::get('/home', 'HomeController@home')->name('home');
+    
+    Route::prefix('supervisor')->name('supervisor.')->group(function(){
+        Route::get('/', 'AdminController@supervisor')->name('index');
+        Route::get('/terpilih', 'AdminController@terpilih')->name('terpilih');
+        Route::post('/', 'AdminController@update')->name('update');
+        Route::delete('/{user}', 'AdminController@destroy')->name('delete');
+        Route::get('/tambah', 'AdminController@create')->name('create');
+        Route::post('/tambah', 'AdminController@store')->name('store');
+    });
+
+    Route::prefix('rpp')->name('rpp.')->group(function(){
+        Route::get('/', 'AdminController@supervisor')->name('index');
+    });
 });
 
 Route::prefix('kepala-sekolah')->name('kepalasekolah.')->middleware('role:kepalasekolah')->group(function(){
@@ -30,12 +43,21 @@ Route::prefix('kepala-sekolah')->name('kepalasekolah.')->middleware('role:kepala
 
     Route::prefix('rpp')->name('rpp.')->group(function(){
         Route::get('/', 'KepsekController@index')->name('index');
+        Route::get('/disetujui', 'KepsekController@disetujui')->name('disetujui');
+        Route::get('/tidak-disetujui', 'KepsekController@tidakDisetujui')->name('tidakdisetujui');
+        Route::get('/belum-disetujui', 'KepsekController@belumDisetujui')->name('belum-disetujui');
+        Route::get('/belum-dinilai', 'KepsekController@belumDinilai')->name('belumdinilai');
     });
 });
 
 Route::prefix('kurikulum')->name('kurikulum.')->middleware('role:kurikulum')->group(function(){
     Route::get('/', 'HomeController@home')->name('home');
     Route::get('/home', 'HomeController@home')->name('home');
+
+    Route::prefix('pilih-supervisor')->name('pilih.')->group(function(){
+        Route::get('/', 'KurikulumController@indexPilih')->name('index');
+        Route::get('/terpilih', 'KurikulumController@terpilih')->name('terpilih');
+    });
 
     Route::prefix('jadwal')->name('jadwal.')->group(function(){
         Route::get('/', 'JadwalController@index')->name('index');

@@ -13,11 +13,20 @@ class KurikulumController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
+    public function indexPilih()
+    {
+        $users = User::role('calon-sv')->get();
+
+        return view('kurikulum.pilih-supervisor.index', compact('users'));
+    }
+    public function terpilih()
+    {
+        $users = User::role('supervisor')->get();
+
+        return view('kurikulum.pilih-supervisor.terpilih', compact('users'));
+    }
+
     public function persetujuan()
     {
         $null = !null;
