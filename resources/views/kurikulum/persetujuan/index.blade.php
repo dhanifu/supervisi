@@ -2,6 +2,8 @@
 
 @section('title', 'Kurikulum - Persetujuan')
 
+@section('active-persetujuan', 'active')
+
 @section('content')
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -115,7 +117,7 @@
     @endif
     <div class="card mb-4 shadow h-100">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">Data RPP yang belum disetujui</h6>
+            <h6 class="m-0 font-weight-bold text-primary">Data RPP</h6>
         </div>
         <div class="card-body">
 

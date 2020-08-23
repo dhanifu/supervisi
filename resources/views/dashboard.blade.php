@@ -1,22 +1,26 @@
 @extends('layouts.app')
 
+@section('active-dashboard', 'active')
+
 @role('admin')
-    @section('title', 'Admin | Dashboard')
-@endrole
-@role('kepalasekolah')
-    @section('title', 'Kepala Sekolah | Dashboard')
-@endrole
-@role('kurikulum')
-    @section('title', 'Kurikulum | Dashboard')
-@endrole
-@role('guru')
-    @section('title', 'Guru | Dashboard')
-@endrole
-@role('supervisor')
-    @section('title', 'Supervisor | Dashboard')
+    @section('title', 'Admin - Dashboard')
+@elserole('kepalasekolah')
+    @section('title', 'Kepala Sekolah - Dashboard')
+@elserole('kurikulum')
+    @section('title', 'Kurikulum - Dashboard')
+@elserole('guru')
+    @section('title', 'Guru - Dashboard')
+@elserole('supervisor')
+    @section('title', 'Supervisor - Dashboard')
 @endrole
 
 @section('content')
+
+@role('admin')
+    @include('dashboard-modules.admin')
+@elserole('kepalasekolah')
+    @include('dashboard-modules.kepsek')
+@elserole('kurikulum')
 <div class="row">
     <div class="col-lg-12">
         <div class="card shadow mb-4">
@@ -31,4 +35,5 @@
         </div>
     </div>
 </div>
+@endrole
 @endsection

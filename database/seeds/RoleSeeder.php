@@ -36,5 +36,10 @@ class RoleSeeder extends Seeder
             'name' => 'supervisor',
             'guard_name' => 'web'
         ]);
+
+        Role::create([
+            'name' => 'calon-sv',
+            'guard_name' => 'web'
+        ]);
     }
 }

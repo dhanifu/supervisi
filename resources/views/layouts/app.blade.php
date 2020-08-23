@@ -46,7 +46,7 @@
             <!-- END OF MAIN CONTENT -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
+            <footer class="sticky-footer bg-white shadow">
                 <div class="container my-auto">
                 <div class="copyright text-center my-auto">
                     <span>Copyright &copy; Supervise <script>document.write(new Date().getFullYear());</script></span>
@@ -81,6 +81,9 @@
   
     <!-- Page level custom scripts -->
     <script src="{{ asset('admin/js/demo/datatables-demo.js') }}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{{ asset('admin/vendor/chart.js/Chart.min.js') }}"></script>
 
     @yield('js')
     
