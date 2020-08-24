@@ -21,7 +21,7 @@ class AdminController extends Controller
     {
         $user = User::role('calon-sv')->get();
         
-        return view('admin.rpp.index', compact('user'));
+        return view('admin.supervisor.index', compact('user'));
     }
     public function terpilih()
     {

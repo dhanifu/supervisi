@@ -88,7 +88,7 @@ Route::prefix('guru')->name('guru.')->middleware('role:guru')->group(function(){
         Route::get('/', 'GuruController@create')->name('index');
         Route::post('/', 'RppController@store')->name('store');
         Route::patch('/', 'RppController@update')->name('update');
-        Route::delete('/{rpp}', 'RppController@destroy')->name('delete');
+        Route::get('/delete', 'RppController@destroy')->name('delete');
     });
 });
 

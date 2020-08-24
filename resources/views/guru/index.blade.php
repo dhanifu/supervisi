@@ -28,7 +28,7 @@
             </button>
         </div>
         @endif
-        <div class="card mb-4">
+        <div class="card mb-4 shadow">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Form Upload</h6>
             </div>
@@ -75,7 +75,7 @@
 
 <div class="row">
     <div class="col-lg-12">
-        <div class="card mb-4">
+        <div class="card mb-4 shadow">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">Data RPP</h6>
             </div>
@@ -99,37 +99,40 @@
                                 <td>{{ $r->created_at->format('d M Y') }}</td>
                                 <td>
                                     <span title="{{$r->nama_rpp}}">
-                                    @if ( strlen($r->nama_rpp) > 30 )
+                                        @if ( strlen($r->nama_rpp) > 30 )
                                         {{ substr($r->nama_rpp, 0, 30) }}....
-                                    @else
+                                        @else
                                         {{ $r->nama_rpp }}
-                                    @endif
+                                        @endif
                                     </span>
                                 </td>
                                 <td>
                                     @if($r->nilai == '')
-                                    <span class="text-warning"><i class="fas fa-minus-circle" title="Belum Dinilai"></i></span>
+                                    <span class="text-warning"><i class="fas fa-minus-circle"
+                                            title="Belum Dinilai"></i></span>
                                     @else
                                     {{ $r->nilai }}
                                     @endif
                                 </td>
                                 <td align="center">
                                     @if ( $r->status == 'belum' )
-                                    <span class="text-warning"><i class="fas fa-minus-circle" title="Belum Disetujui"></i></span>
+                                    <span class="text-warning"><i class="fas fa-minus-circle"
+                                            title="Belum Disetujui"></i></span>
                                     @elseif ( $r->status == 0 )
-                                    <span class="text-danger"><i class="fas fa-times-circle" title="Tidak Disetujui"></i></span>
+                                    <span class="text-danger"><i class="fas fa-times-circle"
+                                            title="Tidak Disetujui"></i></span>
                                     @elseif ( $r->status == 1 )
-                                    <span class="text-success"><i class="fas fa-check-circle" title="Disetujui"></i></span>
+                                    <span class="text-success"><i class="fas fa-check-circle"
+                                            title="Disetujui"></i></span>
                                     @endif
                                 </td>
                                 <td align="center">
-                                    <button type="button" class="btn btn-info btn-sm btn-circle"
-                                            data-toggle="modal" data-target="#modalEdit" 
-                                            data-id="{{$r->id}}" data-namarpp="{{$r->nama_rpp}}">
+                                    <button type="button" class="btn btn-info btn-sm btn-circle" data-toggle="modal"
+                                        data-target="#modalEdit" data-id="{{$r->id}}" data-namarpp="{{$r->nama_rpp}}">
                                         <i class="fas fa-edit"></i>
                                     </button>
-                                    <button type="button" class="btn btn-danger btn-sm btn-circle"
-                                            data-toggle="modal" data-target="#modalDelete">
+                                    <button type="button" class="btn btn-danger btn-sm btn-circle" data-toggle="modal"
+                                        data-target="#modalDelete" data-id="{{$r->id}}">
                                         <i class="fas fa-trash"></i>
                                     </button>
                                 </td>
@@ -158,14 +161,10 @@
             <div class="modal-body">
                 Anda yakin untuk menghapus file ini?
             </div>
-            <form action="{{ route('guru.rpp.delete', $r->id) }}" method="POST">
-                @csrf
-                @method('DELETE')
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Delete</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="delete">Delete</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>
@@ -190,7 +189,8 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="nama_rpp" class="col-form-label">Nama RPP</label>
-                                <input type="text" class="form-control" name="nama_rpp" id="nama_rpp" value="{{ old('nama_rpp') }}">
+                                <input type="text" class="form-control" name="nama_rpp" id="nama_rpp"
+                                    value="{{ old('nama_rpp') }}">
                                 <input type="hidden" name="rpp_id" id="rpp_id">
                             </div>
                         </div>
@@ -217,15 +217,43 @@
 @endsection
 
 @section('js')
-    <script>
-        $('#modalEdit').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget)
-            var rpp_id = button.data('id')
-                nama_rpp = button.data('namarpp');
-            var modal = $(this)
-            
-            modal.find('.modal-body #rpp_id').val(rpp_id)
-            modal.find('.modal-body #nama_rpp').val(nama_rpp)
-        })
-    </script>
+<script>
+    $('#modalEdit').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget)
+        var rpp_id = button.data('id')
+        nama_rpp = button.data('namarpp');
+        var modal = $(this)
+
+        modal.find('.modal-body #rpp_id').val(rpp_id)
+        modal.find('.modal-body #nama_rpp').val(nama_rpp)
+    })
+
+    $(document).ready(function () {
+
+        $('#modalDelete').on('show.bs.modal', function (e) {
+            id = $(e.relatedTarget).data('id');
+            $('#delete').on('click', function () {
+                $('#modalDelete').modal('hide');
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('guru.rpp.delete') }}",
+                    data: {
+                        '_token': $('input[name="_token"').val(),
+                        'id': id,
+                    },
+                    success: function (data) {
+                        // $('#al').modal(data);   
+                        // $('#lala').html(data).load('admin.slider.index');
+                        // $('#table').reload(data);
+                        location.reload(true);
+                        alert('Data Berhasil di Hapus');
+                    },
+                });
+            });
+
+        });
+
+    });
+
+</script>
 @endsection

@@ -17,7 +17,7 @@ class SupervisorController extends Controller
     public function create()
     {
         $supervisor = Auth::user()->nip;
-        $rpp = Rpp::join('users', 'rpp.nip_guru','=','users.nip')
+        $rpp = User::join('rpp', 'users.nip','=','rpp.nip_guru')
                     ->orderBy('rpp.created_at', 'DESC')
                     ->get();
 
@@ -50,5 +50,15 @@ class SupervisorController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Berhasil Mengedit Nilai RPP');
+    }
+
+    // JADWAL
+    public function jadwal()
+    {
+        $jadwals = User::role('supervisor')->where('nip', Auth::user()->nip)
+                        ->join('jadwals', 'users.nip','=','jadwals.nip_supervisor')
+                        ->get();
+        
+        return view('supervisor.jadwal.index', compact('jadwals'));
     }
 }
