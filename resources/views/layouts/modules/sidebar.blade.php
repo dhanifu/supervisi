@@ -78,12 +78,6 @@
     </li>
 
     @elserole('kurikulum')
-    <li class="nav-item @yield('active-kurikulum-jadwal')">
-        <a class="nav-link" href="{{ route('kurikulum.jadwal.index') }}">
-            <i class="fas fa-fw fa-calendar-alt"></i>
-            <span>Jadwal Supervisor</span>
-        </a>
-    </li>
     <li class="nav-item @yield('active-kurikulum-persetujuan')">
         <a class="nav-link" href="{{ route('kurikulum.persetujuan.index') }}">
             <i class="fas fa-fw fa-check-circle"></i>
@@ -100,6 +94,7 @@
                 <h6 class="collapse-header">Memilih & terpilih:</h6>
                 <a class="collapse-item @yield('active-kurikulum-milih')" href="{{ route('kurikulum.pilih.index') }}">Memilih</a>
                 <a class="collapse-item @yield('active-kurikulum-terpilih')" href="{{ route('kurikulum.pilih.terpilih') }}">Terpilih</a>
+                <a class="collapse-item @yield('active-kurikulum-jadwal')" href="{{ route('kurikulum.jadwal.index') }}">Jadwal Supervisor</a>
             </div>
         </div>
     </li>
@@ -121,7 +116,7 @@
 
     <!-- Nav Item - Charts -->
     <li class="nav-item @yield('active-supervisor-jadwal')">
-        <a class="nav-link" href="{{ route('supervisor.rpp.jadwal') }}">
+        <a class="nav-link" href="{{ route('supervisor.jadwal.index') }}">
             <i class="fas fa-fw fa-file"></i>
             <span>Jadwal</span>
         </a>

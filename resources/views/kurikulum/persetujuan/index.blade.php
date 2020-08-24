@@ -115,7 +115,7 @@
         </button>
     </div>
     @endif
-    <div class="card mb-4 shadow h-100">
+    <div class="card mb-4 shadow">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">Data RPP</h6>
         </div>

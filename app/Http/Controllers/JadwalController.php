@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 
 class JadwalController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,22 +20,19 @@ class JadwalController extends Controller
      */
     public function index()
     {
-        $jadwals = Jadwal::join('users','jadwals.nip_supervisor','=','users.nip')->get();
+        $users = User::role('supervisor')->orderBy('name', 'ASC')->get();
 
-        return view('kurikulum.jadwal.index', compact('jadwals'));
+        return view('kurikulum.jadwal.index', compact('users'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function lihat(User $user)
     {
-        $users = User::select('nip', 'name')->orderBy('name', 'ASC')->get();
-        
-    }
+        $jadwals = User::role('supervisor')->where('nip', $user->nip)
+                    ->join('jadwals', 'users.nip','=','jadwals.nip_supervisor')
+                    ->orderBy('jadwals.tanggal', 'ASC')->get();
+        // dd($jadwals);
 
+        return view('kurikulum.jadwal.lihat', compact('user', 'jadwals'));
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -41,34 +42,17 @@ class JadwalController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nip_supervisor' => 'required',
             'tanggal' => 'required',
             'waktu' => 'required',
         ]);
 
+        $jadwal = Jadwal::create([
+            'nip_supervisor' => $request->nip,
+            'tanggal' => $request->tanggal,
+            'waktu' => $request->waktu,
+        ]);
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Jadwal  $jadwal
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Jadwal $jadwal)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Jadwal  $jadwal
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Jadwal $jadwal)
-    {
-        //
+        return redirect()->route('kurikulum.jadwal.lihat', $request->id)->with('success', 'Jadwal telah ditambahkan');
     }
 
     /**
@@ -89,8 +73,11 @@ class JadwalController extends Controller
      * @param  \App\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Jadwal $jadwal)
+    public function destroy(Request $request)
     {
-        //
+        $jadwal = Jadwal::find($request->id);
+        $jadwal->delete();
+
+        return redirect()->back()->with('success', 'Jadwal berhasil dihapus');
     }
 }
