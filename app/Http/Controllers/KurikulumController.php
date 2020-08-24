@@ -26,6 +26,20 @@ class KurikulumController extends Controller
 
         return view('kurikulum.pilih-supervisor.terpilih', compact('users'));
     }
+    public function pilih(Request $request)
+    {
+        $supervisor = User::find($request->id);
+        $supervisor->syncRoles('supervisor');
+
+        return redirect()->route('kurikulum.pilih.index');
+    }
+    public function cabut(Request $request)
+    {
+        $supervisor = User::find($request->id);
+        $supervisor->syncRoles('calon-sv');
+
+        return redirect()->route('kurikulum.pilih.terpilih');
+    }
 
     public function persetujuan()
     {

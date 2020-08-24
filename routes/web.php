@@ -57,10 +57,16 @@ Route::prefix('kurikulum')->name('kurikulum.')->middleware('role:kurikulum')->gr
     Route::prefix('pilih-supervisor')->name('pilih.')->group(function(){
         Route::get('/', 'KurikulumController@indexPilih')->name('index');
         Route::get('/terpilih', 'KurikulumController@terpilih')->name('terpilih');
+        Route::get('/pilih', 'KurikulumController@pilih')->name('pilih');
+        Route::get('/cabut', 'KurikulumController@cabut')->name('cabut');
     });
 
     Route::prefix('jadwal')->name('jadwal.')->group(function(){
         Route::get('/', 'JadwalController@index')->name('index');
+        Route::get('/{user}/lihat', 'JadwalController@lihat')->name('lihat');
+        Route::post('/buat', 'JadwalController@store')->name('store');
+        Route::patch('/{jadwal}/edit', 'JadwalController@update')->name('update');
+        Route::get('/delete', 'JadwalController@destroy')->name('destroy');
     });
     
     Route::prefix('persetujuan')->name('persetujuan.')->group(function(){
@@ -91,7 +97,7 @@ Route::prefix('supervisor')->name('supervisor.')->middleware('role:supervisor')-
     Route::get('/home', 'HomeController@home')->name('home');
 
     Route::prefix('jadwal')->name('jadwal.')->group(function(){
-        Route::get('/', 'SupervisorController@jadwal')->name('jadwal');
+        Route::get('/', 'SupervisorController@jadwal')->name('index');
     });
 
     Route::prefix('rpp')->name('rpp.')->group(function(){
