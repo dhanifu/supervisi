@@ -37,6 +37,35 @@ class SupervisorController extends Controller
 
         return redirect()->back()->with('success', 'Berhasil Menilai RPP');
     }
+    // HALAMAN BIASA YANG BERISI INFO
+    public function disetujui()
+    {
+        $rpp = Rpp::where([['status','=','1'],['nilai','!=',null]])
+                    ->join('users', 'rpp.nip_guru','=','users.nip')
+                    ->get();
+        $title = 'Disetujui';
+        
+        return view('supervisor.rpp.info', compact('rpp', 'title'));
+    }
+    public function belumDisetujui()
+    {
+        $rpp = Rpp::where([['status','=','belum'],['nilai','!=',null]])
+                    ->join('users', 'rpp.nip_guru','=','users.nip')
+                    ->get();
+        $title = 'Menunggu Persetujuan';
+
+        return view('supervisor.rpp.info', compact('rpp', 'title'));
+    }
+    public function tidakDisetujui()
+    {
+        $rpp = Rpp::where([['status','=','0'],['nilai','!=',null]])
+                    ->join('users', 'rpp.nip_guru','=','users.nip')
+                    ->get();
+        $title = 'Tidak Disetujui';
+
+        return view('supervisor.rpp.info', compact('rpp', 'title'));
+    }
+
 
     public function editNilai(Request $request)
     {
