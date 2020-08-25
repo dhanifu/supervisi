@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('title', 'GURU | Upload RPP')
+@section('active-guru-upload', 'active')
 
 @section('content')
 
