@@ -17,7 +17,8 @@ class SupervisorController extends Controller
     public function create()
     {
         $supervisor = Auth::user()->nip;
-        $rpp = Rpp::join('users', 'rpp.nip_guru','=','users.nip')
+        $rpp = User::join('rpp', 'users.nip','=','rpp.nip_guru')
+                    ->where('rpp.status','belum')
                     ->orderBy('rpp.created_at', 'DESC')
                     ->get();
 
@@ -37,6 +38,35 @@ class SupervisorController extends Controller
 
         return redirect()->back()->with('success', 'Berhasil Menilai RPP');
     }
+    // HALAMAN BIASA YANG BERISI INFO
+    public function disetujui()
+    {
+        $rpp = Rpp::where([['status','=','1'],['nilai','!=',null]])
+                    ->join('users', 'rpp.nip_guru','=','users.nip')
+                    ->get();
+        $title = 'Disetujui';
+        
+        return view('supervisor.rpp.info', compact('rpp', 'title'));
+    }
+    public function belumDisetujui()
+    {
+        $rpp = Rpp::where([['status','=','belum'],['nilai','!=',null]])
+                    ->join('users', 'rpp.nip_guru','=','users.nip')
+                    ->get();
+        $title = 'Menunggu Persetujuan';
+
+        return view('supervisor.rpp.info', compact('rpp', 'title'));
+    }
+    public function tidakDisetujui()
+    {
+        $rpp = Rpp::where([['status','=','0'],['nilai','!=',null]])
+                    ->join('users', 'rpp.nip_guru','=','users.nip')
+                    ->get();
+        $title = 'Tidak Disetujui';
+
+        return view('supervisor.rpp.info', compact('rpp', 'title'));
+    }
+
 
     public function editNilai(Request $request)
     {
@@ -50,5 +80,15 @@ class SupervisorController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Berhasil Mengedit Nilai RPP');
+    }
+
+    // JADWAL
+    public function jadwal()
+    {
+        $jadwals = User::role('supervisor')->where('nip', Auth::user()->nip)
+                        ->join('jadwals', 'users.nip','=','jadwals.nip_supervisor')
+                        ->get();
+        
+        return view('supervisor.jadwal.index', compact('jadwals'));
     }
 }

@@ -44,7 +44,7 @@ class KurikulumController extends Controller
     public function persetujuan()
     {
         $null = !null;
-        $rpp = Rpp::join('users','rpp.nip_guru','=','users.nip')
+        $rpp = User::join('rpp','users.nip','=','rpp.nip_guru')
                 ->where([
                     ['rpp.nilai','!=',null]
                 ])->orderBy('rpp.updated_at', 'DESC')

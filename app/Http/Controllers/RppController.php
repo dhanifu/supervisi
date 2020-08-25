@@ -115,8 +115,9 @@ class RppController extends Controller
         return redirect()->back()->with('success', 'Berhasil Mengedit Status');
     }
 
-    public function destroy(Rpp $rpp)
+    public function destroy(Request $request)
     {
+        $rpp = Rpp::find($request->id);
         File::delete(public_path('documents/rpp/'.$rpp->rpp));
         $rpp->delete();
 

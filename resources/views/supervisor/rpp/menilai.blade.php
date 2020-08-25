@@ -1,18 +1,18 @@
 @extends('layouts.app')
 
 @section('title', 'Supervisor | Menilai')
+@section('active-supervisor-menilai', 'active')
 
 @section('content')
 
 
-<h1 class="h3 mb-0 text-gray-800">Menilai RPP</h1>
-{{-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Button</a> --}}
-<p class="mb-4">"untuk melihat filenya, klik titik 3 biru dikolom 'Act' dan pilih
-    lihat file".</p>
+<h1 class="h3 mb-2 text-gray-800">Menilai RPP</h1>
+<p class="mb-4">"Klik titik 3 biru dikolom 'Act' untuk menilai RPP dan melihat file".</p>
+
 <div class="row">
     <div class="col-lg-12">
         @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show wow slideInDown" role="alert">
+        <div class="alert alert-success shadow alert-dismissible fade show wow slideInDown" role="alert">
             {{ session('success') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -21,7 +21,7 @@
         @endif
 
         @if (session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger shadow alert-dismissible fade show" role="alert">
             {{ section('error') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -29,7 +29,7 @@
         </div>
         @endif
 
-        <div class="card mb-4">
+        <div class="card mb-4 shadow">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">RPP</h6>
             </div>
@@ -60,7 +60,7 @@
                                 </td>
                                 <td>{{ $r->name }}</td>
                                 <td>{{ $r->created_at->format('d M Y') }} || {{ $r->created_at->format('H:i') }}</td>
-                                <td>
+                                <td style="text-align: center; width: 20px;">
                                     @if($r->nilai == '')
                                     <span class="text-warning center">
                                         <i class="fas fa-minus-circle" title="Belum Dinilai"></i>
@@ -69,7 +69,7 @@
                                     {{ $r->nilai }}
                                     @endif
                                 </td>
-                                <td align="center">
+                                <td style="text-align: center; width: 20px;">
                                     @if ( $r->status == 'belum' )
                                     <span class="text-warning"><i class="fas fa-minus-circle" title="Belum Disetujui"></i></span>
                                     @elseif ( $r->status == 0 )
@@ -78,7 +78,7 @@
                                     <span class="text-success"><i class="fas fa-check-circle" title="Disetujui"></i></span>
                                     @endif
                                 </td>
-                                <td align="center">
+                                <td style="text-align: center; width: 20px;">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
