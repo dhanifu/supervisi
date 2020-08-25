@@ -18,6 +18,7 @@ class SupervisorController extends Controller
     {
         $supervisor = Auth::user()->nip;
         $rpp = User::join('rpp', 'users.nip','=','rpp.nip_guru')
+                    ->where('rpp.status','belum')
                     ->orderBy('rpp.created_at', 'DESC')
                     ->get();
 

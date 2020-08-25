@@ -86,6 +86,10 @@ Route::prefix('guru')->name('guru.')->middleware('role:guru')->group(function(){
     
     Route::prefix('rpp')->name('rpp.')->group(function(){
         Route::get('/', 'GuruController@create')->name('index');
+        Route::get('/belum-dinilai', 'GuruController@belumDinilai')->name('belum-dinilai');
+        Route::get('/belum-disetujui', 'GuruController@belumDisetujui')->name('belum-disetujui');
+        Route::get('/disetujui', 'GuruController@disetujui')->name('disetujui');
+        Route::get('/tidak-disetujui', 'GuruController@tidakDisetujui')->name('tidak-disetujui');
         Route::post('/', 'RppController@store')->name('store');
         Route::patch('/', 'RppController@update')->name('update');
         Route::get('/delete', 'RppController@destroy')->name('delete');

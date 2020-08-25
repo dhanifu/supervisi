@@ -62,7 +62,7 @@
                                         @endif
                                     </span>
                                 </td>
-                                <td>
+                                <td style="text-align: center; width: 70px">
                                     @if($r->nilai == '')
                                     <span class="text-warning"><i class="fas fa-minus-circle"
                                             title="Belum Dinilai"></i></span>
@@ -70,7 +70,7 @@
                                     {{ $r->nilai }}
                                     @endif
                                 </td>
-                                <td align="center">
+                                <td style="text-align: center; width: 50px">
                                     @if ( $r->status == 'belum' )
                                     <span class="text-warning"><i class="fas fa-minus-circle"
                                             title="Belum Disetujui"></i></span>

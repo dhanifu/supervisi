@@ -180,8 +180,8 @@
                                                     data-target="#modalEditPersetujuan" data-id="{{$r->id}}" data-status="{{$r->status}}">
                                                 Edit Status
                                             </a>
-                                        @endif
-                                        <div class="dropdown-divider"></div>
+                                            <div class="dropdown-divider"></div>
+                                            @endif
                                         <a class="dropdown-item" href="{{ asset('documents/rpp/'.$r->rpp) }}"
                                             target="_blank">Lihat file</a>
                                     </div>
