@@ -20,7 +20,9 @@
     @include('dashboard-modules.admin')
 @elserole('kepalasekolah')
     @include('dashboard-modules.kepsek')
-@elserole('kurikulum|supervisor|guru')
+@elserole('supervisor')
+    @include('dashboard-modules.supervisor')
+@elserole('kurikulum|guru')
 <div class="row">
     <div class="col-lg-12">
         <div class="card shadow mb-4">

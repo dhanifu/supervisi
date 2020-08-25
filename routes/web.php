@@ -102,6 +102,9 @@ Route::prefix('supervisor')->name('supervisor.')->middleware('role:supervisor')-
 
     Route::prefix('rpp')->name('rpp.')->group(function(){
         Route::get('/', 'SupervisorController@create')->name('menilai');
+        Route::get('/belum-disetujui', 'SupervisorController@belumDisetujui')->name('belum-disetujui');
+        Route::get('/disetujui', 'SupervisorController@disetujui')->name('disetujui');
+        Route::get('/tidak-disetujui', 'SupervisorController@tidakDisetujui')->name('tidak-disetujui');
         Route::post('/', 'SupervisorController@menilai')->name('menilai.post');
         Route::patch('/', 'SupervisorController@editNilai')->name('menilai.edit');
     });
