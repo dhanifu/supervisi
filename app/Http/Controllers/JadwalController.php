@@ -44,12 +44,14 @@ class JadwalController extends Controller
         $this->validate($request, [
             'tanggal' => 'required',
             'waktu' => 'required',
+            'sampai' => 'required',
         ]);
 
         $jadwal = Jadwal::create([
             'nip_supervisor' => $request->nip,
             'tanggal' => $request->tanggal,
             'waktu' => $request->waktu,
+            'sampai' => $request->sampai,
         ]);
 
         return redirect()->route('kurikulum.jadwal.lihat', $request->id)->with('success', 'Jadwal telah ditambahkan');
@@ -62,9 +64,22 @@ class JadwalController extends Controller
      * @param  \App\Jadwal  $jadwal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Jadwal $jadwal)
+    public function update(Request $request)
     {
-        //
+        $jadwal = Jadwal::findOrFail($request->id);
+        $this->validate($request, [
+            'tanggal' => 'required',
+            'waktu' => 'required',
+            'sampai' => 'required',
+        ]);
+
+        $jadwal->update([
+            'tanggal' => $request->tanggal,
+            'waktu' => $request->waktu,
+            'sampai' => $request->sampai,
+        ]);
+        
+        return redirect()->back()->with('success', 'Jadwal telah diubah');
     }
 
     /**
