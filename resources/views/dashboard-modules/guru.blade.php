@@ -1,7 +1,7 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
     <span class="btn bg-primary btn-icon-split" style="cursor: default">
-        <span class="text text-white shadow-sm"> Jumlah RPP</span>
+        <span class="text text-white shadow-sm"> RPP yang telah anda upload</span>
         <span class="icon text-white-50">
             {{ $total_guru }}
         </span>

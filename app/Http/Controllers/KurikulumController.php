@@ -46,7 +46,8 @@ class KurikulumController extends Controller
         $null = !null;
         $rpp = User::join('rpp','users.nip','=','rpp.nip_guru')
                 ->where([
-                    ['rpp.nilai','!=',null]
+                    ['rpp.nilai','!=',null],
+                    ['rpp.status','=','belum']
                 ])->orderBy('rpp.updated_at', 'DESC')
                 ->get();
         $total = Rpp::count();
@@ -60,7 +61,7 @@ class KurikulumController extends Controller
 
     public function disetujui()
     {
-        $rpp = Rpp::join('users', 'rpp.nip_guru','=','users.nip')
+        $rpp = User::join('rpp', 'users.nip','=','rpp.nip_guru')
                 ->where([['rpp.status','=', '1']])
                 ->orderBy('rpp.updated_at', 'DESC')
                 ->get();
@@ -70,7 +71,7 @@ class KurikulumController extends Controller
 
     public function tidakDisetujui()
     {
-        $rpp = Rpp::join('users', 'rpp.nip_guru','=','users.nip')
+        $rpp = User::join('rpp', 'users.nip','=','rpp.nip_guru')
                 ->where('rpp.status', '0')
                 ->orderBy('rpp.updated_at', 'DESC')
                 ->get();
