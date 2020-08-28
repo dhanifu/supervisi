@@ -24,7 +24,7 @@ class GuruController extends Controller
     public function create()
     {
         $guru = Auth::user()->nip;
-        $rpp = Rpp::orderBy('updated_at', 'ASC')->where('nip_guru', $guru)->get();
+        $rpp = Rpp::orderBy('updated_at', 'ASC')->where([['nip_guru','=', $guru], ['status','=','belum']])->get();
         
         return view('guru.index', compact('rpp'));
     }

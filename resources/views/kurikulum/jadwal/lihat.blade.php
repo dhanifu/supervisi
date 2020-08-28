@@ -18,7 +18,7 @@
 <div class="row">
     <div class="col-lg-12">
         @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show wow slideInDown" role="alert">
+        <div class="alert alert-success shadow alert-dismissible fade show wow slideInDown" role="alert">
             {{ session('success') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -27,7 +27,7 @@
         @endif
 
         @if (session('error'))
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger shadow alert-dismissible fade show" role="alert">
             {{ section('error') }}
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -51,6 +51,7 @@
                             <tr>
                                 <th>Tanggal</th>
                                 <th>Waktu</th>
+                                <th>Sampai</th>
                                 <th>Act</th>
                             </tr>
                         </thead>
@@ -59,6 +60,7 @@
                             <tr>
                                 <td>{{ $j->tanggal }}</td>
                                 <td>{{ $j->waktu }}</td>
+                                <td>{{ $j->sampai }}</td>
                                 <td align="center">
                                     <div class="dropdown no-arrow">
                                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
@@ -68,8 +70,9 @@
                                         <div class="dropdown-menu dropdown-menu-right mr-4 shadow animated--fade-in"
                                             aria-labelledby="dropdownMenuLink">
                                             <div class="dropdown-header">Action:</div>
-                                            <a href="{{ route('kurikulum.jadwal.lihat', $j->id) }}"
-                                                class="dropdown-item">
+                                            <a href="#edit-jadwal" type="button" class="dropdown-item"
+                                                data-toggle="modal" data-target="#modalEditJadwal" data-id="{{$j->id}}"
+                                                data-tanggal="{{$j->tanggal}}" data-waktu="{{$j->waktu}}" data-sampai="{{$j->sampai}}">
                                                 Edit Jadwal
                                             </a>
                                             <div class="dropdown-divider"></div>
@@ -115,10 +118,14 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="waktu" class="col-md-3 col-form-label">Waktu</label>
-                            <div class="col-md-9">
+                            <div class="col-md-6">
+                                <label for="waktu" class="col-form-label">Waktu</label>
                                 <input type="hidden" name="id" id="id" value="{{$user->id}}">
                                 <input type="time" name="waktu" id="waktu" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="waktu" class="col-form-label">Sampai</label>
+                                <input type="time" name="sampai" id="sampai" class="form-control" required>
                             </div>
                         </div>
                     </div>
@@ -131,6 +138,52 @@
         </div>
     </div>
 </div>
+
+
+<!-- MODAL EDIT JADWAL -->
+<div class="modal fade" id="modalEditJadwal" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="modalEditJadwalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEditJadwalLabel">Buat Jadwal</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ route('kurikulum.jadwal.update') }}" method="POST">
+                @csrf
+                @method('PATCH')
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <div class="form-group row">
+                            <label for="tanggal" class="col-md-3 col-form-label">Tanggal</label>
+                            <div class="col-md-9">
+                                <input type="date" name="tanggal" id="tanggal" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label for="waktu" class="col-form-label">Waktu</label>
+                                <input type="hidden" name="id" id="id">
+                                <input type="time" name="waktu" id="waktu" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="waktu" class="col-form-label">Sampai</label>
+                                <input type="time" name="sampai" id="sampai" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 
 
 <!-- Modal Hapus Jadwal -->
@@ -160,6 +213,22 @@
 
 @section('js')
 <script>
+    $('#modalEditJadwal').on('show.bs.modal', function(e){
+        let button = $(e.relatedTarget)
+        let id = button.data('id')
+            tanggal = button.data('tanggal')
+            waktu = button.data('waktu')
+            sampai = button.data('sampai')
+
+        let modal = $(this)
+
+        modal.find('.modal-body #id').val(id)
+        modal.find('.modal-body #tanggal').val(tanggal)
+        modal.find('.modal-body #waktu').val(waktu)
+        modal.find('.modal-body #sampai').val(sampai)
+        
+    })
+
     $(document).ready(function () {
 
         $('#modalHapusJadwal').on('show.bs.modal', function (e) {
@@ -174,7 +243,7 @@
                         'id': id,
                     },
                     success: function (data) {
-                        location.reload(true);
+                        location.reload(false);
                         alert('Jadwal berhasil dihapus');
                     },
                 });

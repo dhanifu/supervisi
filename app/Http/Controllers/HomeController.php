@@ -41,7 +41,7 @@ class HomeController extends Controller
         // elseif ( Auth::user()->role('kurikulum') ) {
         //     return view('dashboard');
         // }
-        if ( Auth::user()->role('guru') ) {
+        if ( Auth::user()->hasRole('guru') ) {
             $total_guru = Rpp::where('nip_guru', $nip)->count();
             $disetujui_guru = Rpp::where([['status', '1'], ['nip_guru','=',$nip]])->get()->count();
             $tak_disetujui_guru = Rpp::where([['status', '0'], ['nip_guru','=',$nip]])->get()->count();

@@ -105,10 +105,14 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="waktu" class="col-md-3 col-form-label">Waktu</label>
-                            <div class="col-md-9">
+                            <div class="col-md-6">
+                                <label for="waktu" class="col-form-label">Waktu</label>
                                 <input type="hidden" name="id" id="id">
                                 <input type="time" name="waktu" id="waktu" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="waktu" class="col-form-label">Sampai</label>
+                                <input type="time" name="sampai" id="sampai" class="form-control" required>
                             </div>
                         </div>
                     </div>

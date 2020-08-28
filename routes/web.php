@@ -65,7 +65,7 @@ Route::prefix('kurikulum')->name('kurikulum.')->middleware('role:kurikulum')->gr
         Route::get('/', 'JadwalController@index')->name('index');
         Route::get('/{user}/lihat', 'JadwalController@lihat')->name('lihat');
         Route::post('/buat', 'JadwalController@store')->name('store');
-        Route::patch('/{jadwal}/edit', 'JadwalController@update')->name('update');
+        Route::patch('/edit', 'JadwalController@update')->name('update');
         Route::get('/delete', 'JadwalController@destroy')->name('destroy');
     });
     
