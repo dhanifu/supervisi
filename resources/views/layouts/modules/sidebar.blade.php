@@ -94,7 +94,7 @@
                 <h6 class="collapse-header">Memilih & terpilih:</h6>
                 <a class="collapse-item @yield('active-kurikulum-milih')" href="{{ route('kurikulum.pilih.index') }}">Memilih</a>
                 <a class="collapse-item @yield('active-kurikulum-terpilih')" href="{{ route('kurikulum.pilih.terpilih') }}">Terpilih</a>
-                <a class="collapse-item @yield('active-kurikulum-jadwal')" href="{{ route('kurikulum.jadwal.index') }}">Jadwal Supervisor</a>
+                {{-- <a class="collapse-item @yield('active-kurikulum-jadwal')" href="{{ route('kurikulum.jadwal.index') }}">Jadwal Supervisor</a> --}}
             </div>
         </div>
     </li>
@@ -115,12 +115,12 @@
     @elserole('supervisor')
 
     <!-- Nav Item - Charts -->
-    <li class="nav-item @yield('active-supervisor-jadwal')">
+    {{-- <li class="nav-item @yield('active-supervisor-jadwal')">
         <a class="nav-link" href="{{ route('supervisor.jadwal.index') }}">
             <i class="fas fa-fw fa-file"></i>
             <span>Jadwal</span>
         </a>
-    </li>
+    </li> --}}
     <li class="nav-item @yield('active-supervisor-menilai')">
         <a class="nav-link" href="{{ route('supervisor.rpp.menilai') }}">
             <i class="fas fa-fw fa-file"></i>
