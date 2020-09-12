@@ -12,7 +12,7 @@
 > git clone https://github.com/mrmdhani/supervisi.git supervisi
 > composer install
 > cp .env.example .env
-buat database
+  trus buat database dulu
 > php artisan migrate
 > php artisan db:seed
 ```
